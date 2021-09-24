@@ -16,7 +16,7 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
     print(f"Using GPU: {using_gpus}\n")
 
     # Debug variables
-    layers_str = "[" + ",".join(str(x.units) for x in layers) + "]"
+    layers_str = "[" + "|".join(str(str(x.units) + " " + x.activation._keras_api_names[0][18:]) for x in layers) + "]"
     loss_function_name = loss_function.name
     print(f"{endpoint} hyper-parameters:\n\t" +
           f"Layers: {layers_str}\n\tLoss Function: {loss_function_name}\n\tBatch Size: {batch_size}\n\t" +
