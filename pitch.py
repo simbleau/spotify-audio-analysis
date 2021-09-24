@@ -9,9 +9,12 @@ from tensorflow.keras.layers import *
 OUTPUT_SIZE = 12
 
 # Model
+#
+# Example Output (from https://cs.appstate.edu/~rmp/cs5440/AnalyzeDocumentation.pdf)
+# "pitches": [0.370, 0.067, 0.055, 0.073, 0.108, 0.082, 0.123, 0.180, 0.327, 1.000, 0.178, 0.234]
 layers = [
     Dense(500, activation='sigmoid'),
-    Dense(OUTPUT_SIZE, activation='softmax')
+    Dense(OUTPUT_SIZE, activation='sigmoid') # Should be an activation which clamps values between 0 and 1
 ]
 
 # Loss function
