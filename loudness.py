@@ -10,6 +10,7 @@ OUTPUT_SIZE = 1
 
 # Model
 layers = [
+    Dense(500, activation='tanh'),
     Dense(OUTPUT_SIZE, activation='linear')
 ]
 
@@ -17,10 +18,10 @@ layers = [
 loss_function = MeanSquaredError()
 
 # Optimizers
-optimizer = Adamax(learning_rate=0.01)
+optimizer = Adam()
 
 # Batch Size
-batch_size = 512
+batch_size = 64
 
 # Epochs
 epochs = 1
