@@ -1,6 +1,9 @@
 # Ignore .idea folder
 .idea/
 
+# Ignore data artifacts since they exceed 100 MiB
+data/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
