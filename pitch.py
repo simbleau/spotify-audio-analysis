@@ -10,20 +10,21 @@ OUTPUT_SIZE = 12
 
 # Model
 layers = [
-    Dense(OUTPUT_SIZE, activation='linear')
+    Dense(500, activation='sigmoid'),
+    Dense(OUTPUT_SIZE, activation='softmax')
 ]
 
 # Loss function
 loss_function = MeanSquaredError()
 
 # Optimizers
-optimizer = Adamax(learning_rate=0.01)
+optimizer = Adamax(learning_rate=0.1)
 
 # Batch Size
-batch_size = 512
+batch_size = 2048
 
 # Epochs
-epochs = 1
+epochs = 20
 
 # Run
 if __name__ == '__main__':
