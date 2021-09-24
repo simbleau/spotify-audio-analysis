@@ -26,7 +26,7 @@ Team meeting room is **202-A**.
 # Troubleshooting
  - `ImportError: cannot import name seaborn`
    - Fix: `pip install seaborn`
- - `"AttributeError: 'str' object has no attribute 'decode' " , while Loading a Keras Saved Model`
+ - `"AttributeError: 'str' object has no attribute 'decode' "` , while Loading a Keras Saved Model
    - Fix: `pip install 'h5py==2.10.0' --force-reinstall`
  
 # WebCAT
