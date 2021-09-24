@@ -120,7 +120,7 @@ def get_best_model(output_path):
                 best_model_file = file_name
                 min_loss = val_loss
                 best_epoch = epoch
-    print(f'loading best model: {best_model_file}')
+    print(f'Loading best model: {best_model_file}...')
     model = keras.models.load_model(os.path.join(output_path, best_model_file), compile=True,
                                     custom_objects={'Normalization': Normalization})
     return model, best_epoch, min_loss
