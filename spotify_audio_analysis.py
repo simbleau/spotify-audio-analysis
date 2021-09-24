@@ -82,7 +82,7 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
             prev_best_model = keras.models.load_model(f"best_models/{endpoint}.h5", compile=True,
                                                       custom_objects={'Normalization': Normalization})
             prev_best_val_loss = prev_best_model.evaluate(x_valid, y_valid, verbose=0)
-        if prev_best_val_loss - best_loss > 0.01:
+        if prev_best_val_loss - best_loss > 0.000001:
             print(f"NEW RECORD! Loss: {best_loss}, saved to: best_models/{endpoint}.h5")
             model.save(f"best_models/{endpoint}.h5")
         else:
