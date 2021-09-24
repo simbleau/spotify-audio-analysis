@@ -17,7 +17,7 @@ def print_best_model(path, endpoint):
         print(f"No best model for {endpoint}")
 
 
-def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
+def main():
     # Setup path for artifacts
     timbre_model_path = f'best_models/timbre.h5'
     pitch_model_path = f'best_models/pitch.h5'
@@ -26,3 +26,7 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
     print_best_model(timbre_model_path, 'timbre')
     print_best_model(pitch_model_path, 'pitch')
     print_best_model(loudness_model_path, 'loudness')
+
+
+if __name__ == "__main__":
+    main()
