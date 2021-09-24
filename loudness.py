@@ -24,10 +24,10 @@ loss_function = MeanSquaredError()
 optimizer = Adam()
 
 # Batch Size
-batch_size = 64
+batch_size = 1024
 
 # Epochs
-epochs = 1
+epochs = 20
 
 # Run
 if __name__ == '__main__':
