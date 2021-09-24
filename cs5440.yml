@@ -1,0 +1,18 @@
+name: cs5440
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - gensim=3.8.1
+  - ipython
+  - jupyter
+  - matplotlib
+  - nltk=3.4.5
+  - numpy=1.19.5
+  - pandas
+  - python=3.7.11
+  - scikit-learn=0.24.2
+  - spacy=2.2.1
+  - tensorflow=2.0.0
+  - tensorflow-estimator=2.0.0
+prefix: /home/parryrm/anaconda3-2021.05/envs/cs5440
