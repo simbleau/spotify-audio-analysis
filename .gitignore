@@ -4,6 +4,15 @@
 # Ignore data artifacts since they exceed 100 MiB
 data/
 
+# Ignore the best models - Force upload to use -f
+best_models/
+
+# Ignore checkpoints entirely
+checkpoints/
+
+# Ignore results.csv
+results.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
