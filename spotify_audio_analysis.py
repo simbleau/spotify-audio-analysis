@@ -2,6 +2,7 @@
 
 from helper_methods import *
 
+import shutil
 import tensorflow
 from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
@@ -28,6 +29,9 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
 
     # Setup path for artifacts
     output_path = f'checkpoints/{endpoint}-artifacts'
+    # Prune previous attempts
+    if exists(output_path):
+        shutil.rmtree(output_path)
 
     # Get x, y
     x_train, y_train = get_xy('data/spotify_train.npz', endpoint)
@@ -79,7 +83,7 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
                                                       custom_objects={'Normalization': Normalization})
             prev_best_val_loss = prev_best_model.evaluate(x_valid, y_valid, verbose=0)
         if best_loss < prev_best_val_loss:
-            print(f"NEW RECORD! BEST MODEL SAVED: best_models/{endpoint}.h5")
+            print(f"NEW RECORD! Loss: {best_loss}, saved to: best_models/{endpoint}.h5")
             model.save(f"best_models/{endpoint}.h5")
         else:
-            print(f"This run did not surpass previous results.")
+            print(f"This run did not beat the previous best loss of {prev_best_val_loss}")
