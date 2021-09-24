@@ -21,6 +21,7 @@ Team meeting room is **202-A**.
  - If the conda environment has never been created: ` conda env create -f cs5440.yml`
  - Activating the conda environment: `conda activate cs5440`
  - Program run example: `python3 loudness.py`
+ - To check the best models' loss: `python3 best_models.py`
 
 # Troubleshooting
  - `ImportError: cannot import name seaborn`
