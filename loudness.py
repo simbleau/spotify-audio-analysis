@@ -9,6 +9,9 @@ from tensorflow.keras.layers import *
 OUTPUT_SIZE = 1
 
 # Model
+#
+# Example Output (from https://cs.appstate.edu/~rmp/cs5440/AnalyzeDocumentation.pdf)
+# "loudness": -60.000
 layers = [
     Dense(500, activation='tanh'),
     Dense(OUTPUT_SIZE, activation='linear')
