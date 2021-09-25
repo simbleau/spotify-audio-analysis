@@ -6,7 +6,6 @@ from tensorflow.keras.optimizers import *
 from tensorflow.keras.losses import *
 from tensorflow.keras.layers import *
 
-OUTPUT_LAYER = Dense(12, activation='softmax')  # Should be an activation which clamps values between 0 and 1
 
 # Model
 #

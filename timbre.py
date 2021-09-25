@@ -6,8 +6,6 @@ from tensorflow.keras.optimizers import *
 from tensorflow.keras.losses import *
 from tensorflow.keras.layers import *
 
-OUTPUT_LAYER = Dense(12, activation='linear')  # Should be an activation which allows negative values
-
 # Model
 #
 # Example Output (from https://cs.appstate.edu/~rmp/cs5440/AnalyzeDocumentation.pdf)

@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from copy import copy, deepcopy
 
 from helper_methods import *
 
@@ -10,6 +11,9 @@ from os.path import exists
 
 
 def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
+    # Clear backend
+    keras.backend.clear_session()
+
     # Printing Debug information
     num_gpus = len(tensorflow.config.experimental.list_physical_devices('GPU'))
     using_gpus = num_gpus >= 1
@@ -23,9 +27,6 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
           f"Epochs: {epochs}")
 
     # Begin run
-
-    # Clear backend
-    keras.backend.clear_session()
 
     # Setup path for artifacts
     output_path = f'checkpoints/{endpoint}-artifacts'
@@ -43,20 +44,20 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
 
     # Sequential Model
     model = Sequential()
-    model.add(Input(129))
+    model.add(Input(129, name='input'))
     # Hidden Layers
     for layer in layers:
         model.add(layer)
     # Add output layer
     if endpoint == "timbre":
-        from timbre import OUTPUT_LAYER
-        model.add(OUTPUT_LAYER)
+        # Output layer should allows negative values
+        model.add(Dense(12, activation='linear', name='output'))
     elif endpoint == "pitch":
-        from pitch import OUTPUT_LAYER
-        model.add(OUTPUT_LAYER)
+        # Output layer clamps values between 0 and 1
+        model.add(Dense(12, activation='softmax', name='output'))
     elif endpoint == "loudness":
-        from loudness import OUTPUT_LAYER
-        model.add(OUTPUT_LAYER)
+        # Output layer should allows negative values
+        model.add(Dense(1, activation='linear', name='output'))
     else:
         print("This shouldn't happen!")
         exit(1)
