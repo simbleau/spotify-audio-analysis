@@ -99,12 +99,12 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
         else:
             print(f"This run did not beat the previous best loss of {prev_best_val_loss}")
 
-    print("Saving visualizations of the best model...")
+        print("Saving visualizations of the best model...")
 
-    # Save visualizations of the best model
-    visualize(model, x=x_train, y_true=y_train, endpoint=endpoint, name='Training', output_path=output_path)
-    print(f"Saved " + str(os.path.join(output_path, f'visualize_Training.png')) + '.')
+        # Save visualizations of the best model
+        visualize(model, x=x_train, y_true=y_train, endpoint=endpoint, name='Training', output_path=output_path)
+        print(f"Saved " + str(os.path.join(output_path, f'visualize_Training.png')) + '.')
 
-    training_png_file_path = os.path.join(output_path, f'visualize_Validation.png')
-    visualize(model, x=x_valid, y_true=y_valid, endpoint=endpoint, name='Validation', output_path=output_path)
-    print(f"Saved " + str(os.path.join(output_path, f'visualize_Validation.png')) + '.')
+        training_png_file_path = os.path.join(output_path, f'visualize_Validation.png')
+        visualize(model, x=x_valid, y_true=y_valid, endpoint=endpoint, name='Validation', output_path=output_path)
+        print(f"Saved " + str(os.path.join(output_path, f'visualize_Validation.png')) + '.')
