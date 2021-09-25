@@ -39,7 +39,8 @@ def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functio
             for layer_neuron_counts, activation in neuron_activation_permutations:
                 layers = []
                 for neuron_amt in layer_neuron_counts:
-                    layers.append(Dense(neuron_amt, activation=activation))
+                    layer_name = "layer" + str(len(layers))
+                    layers.append(Dense(neuron_amt, activation=activation), name=layer_name)
                 layer_permutations.append(layers)
     amt_layer_permutations = len(layer_permutations)
     print(f"All {amt_layer_permutations} permutations compiled.")
@@ -51,5 +52,5 @@ def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functio
 
     print("Beginning grid search...")
     for layer_permutation in layer_permutations:
-        run(endpoint, layer_permutation, loss_function, optimizer, batch_size, epochs, True)
+        run(endpoint, layer_permutation, loss_function, optimizer, batch_size, epochs, False)
     print("Grid search complete.")
