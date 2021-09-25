@@ -6,7 +6,7 @@ from tensorflow.keras.optimizers import *
 from tensorflow.keras.losses import *
 from tensorflow.keras.layers import *
 
-OUTPUT_SIZE = 12
+OUTPUT_LAYER = Dense(12, activation='linear')  # Should be an activation which allows negative values
 
 # Model
 #
@@ -14,7 +14,6 @@ OUTPUT_SIZE = 12
 # "timbre": [24.736, 110.034, 57.822, -171.580, 92.572, 230.158, 48.856, 10.804, 1.371, 41.446, -66.896, 11.207]
 layers = [
     Dense(500, activation='linear'),
-    Dense(OUTPUT_SIZE, activation='linear') # Should be an activation which allows negative values
 ]
 
 # Loss function

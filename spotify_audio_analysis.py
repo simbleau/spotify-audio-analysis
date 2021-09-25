@@ -47,6 +47,19 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
     # Hidden Layers
     for layer in layers:
         model.add(layer)
+    # Add output layer
+    if endpoint == "timbre":
+        from timbre import OUTPUT_LAYER
+        model.add(OUTPUT_LAYER)
+    elif endpoint == "pitch":
+        from pitch import OUTPUT_LAYER
+        model.add(OUTPUT_LAYER)
+    elif endpoint == "loudness":
+        from loudness import OUTPUT_LAYER
+        model.add(OUTPUT_LAYER)
+    else:
+        print("This shouldn't happen!")
+        exit(1)
 
     model.optimizer = optimizer
     model.compile(loss='mean_squared_error')

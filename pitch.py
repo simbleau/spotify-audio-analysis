@@ -6,7 +6,7 @@ from tensorflow.keras.optimizers import *
 from tensorflow.keras.losses import *
 from tensorflow.keras.layers import *
 
-OUTPUT_SIZE = 12
+OUTPUT_LAYER = Dense(12, activation='softmax')  # Should be an activation which clamps values between 0 and 1
 
 # Model
 #
@@ -15,7 +15,6 @@ OUTPUT_SIZE = 12
 layers = [
     Dense(500, activation='tanh'),
     Dense(500, activation='sigmoid'),
-    Dense(OUTPUT_SIZE, activation='softmax') # Should be an activation which clamps values between 0 and 1
 ]
 
 # Loss function

@@ -6,7 +6,7 @@ from tensorflow.keras.optimizers import *
 from tensorflow.keras.losses import *
 from tensorflow.keras.layers import *
 
-OUTPUT_SIZE = 1
+OUTPUT_LAYER = Dense(1, activation='linear')  # Should be an activation which allows negative values
 
 # Model
 #
@@ -14,7 +14,6 @@ OUTPUT_SIZE = 1
 # "loudness": -60.000
 layers = [
     Dense(500, activation='tanh'),
-    Dense(OUTPUT_SIZE, activation='linear')
 ]
 
 # Loss function
