@@ -20,12 +20,11 @@ RANDOM_ORDERING = True  # Whether to grid search in random order (good for faste
 def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functions):
     if PRINT_PERMUTATIONS:
         amt_loss_functions = len(loss_functions)
-        amt_layer_counts = len(layer_counts)
         amt_layer_types = len(layer_types)
         amt_neuron_counts = len(neuron_counts)
         amt_total = 0
         for layer_count in layer_counts:
-            amt_total += layer_count ** amt_neuron_counts * amt_layer_types
+            amt_total += amt_neuron_counts ** layer_count * amt_layer_types
         amt_total *= amt_loss_functions
         print(f"Total permutations: {amt_total}")
 
@@ -41,8 +40,9 @@ def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functio
                 layers = []
                 for neuron_amt in layer_neuron_counts:
                     layers.append(Dense(neuron_amt, activation=activation))
-            layer_permutations.append(layers)
-    print("All permutations compiled.")
+                layer_permutations.append(layers)
+    amt_layer_permutations = len(layer_permutations)
+    print(f"All {amt_layer_permutations} permutations compiled.")
 
     if RANDOM_ORDERING:
         print("Randomizing permutation order...")
