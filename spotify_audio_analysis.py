@@ -86,22 +86,22 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
     model, best_epoch, best_loss = get_best_model(output_path)
     print(f"The best model was discovered on epoch {best_epoch} and had a loss of {best_loss}")
 
+    # Check if the current model is better or not
+    prev_best_val_loss = float('inf')
+    if exists(f"best_models/{endpoint}.h5"):
+        prev_best_model = keras.models.load_model(f"best_models/{endpoint}.h5", compile=True,
+                                                  custom_objects={'Normalization': Normalization})
+        prev_best_val_loss = prev_best_model.evaluate(x_valid, y_valid, verbose=0)
+    if prev_best_val_loss - best_loss > 0.000001:
+        print(f"NEW RECORD! Loss: {best_loss}, saved to: best_models/{endpoint}.h5")
+        model.save(f"best_models/{endpoint}.h5")
+    else:
+        print(f"This run did not beat the previous best loss of {prev_best_val_loss}")
+
+    print("Saving visualizations of the best model...")
+
     # Save result
     if save:
-        # Check if the current model is better or not
-        prev_best_val_loss = float('inf')
-        if exists(f"best_models/{endpoint}.h5"):
-            prev_best_model = keras.models.load_model(f"best_models/{endpoint}.h5", compile=True,
-                                                      custom_objects={'Normalization': Normalization})
-            prev_best_val_loss = prev_best_model.evaluate(x_valid, y_valid, verbose=0)
-        if prev_best_val_loss - best_loss > 0.000001:
-            print(f"NEW RECORD! Loss: {best_loss}, saved to: best_models/{endpoint}.h5")
-            model.save(f"best_models/{endpoint}.h5")
-        else:
-            print(f"This run did not beat the previous best loss of {prev_best_val_loss}")
-
-        print("Saving visualizations of the best model...")
-
         # Save visualizations of the best model
         visualize(model, x=x_train, y_true=y_train, endpoint=endpoint, name='Training', output_path=output_path)
         print(f"Saved " + str(os.path.join(output_path, f'visualize_Training.png')) + '.')
