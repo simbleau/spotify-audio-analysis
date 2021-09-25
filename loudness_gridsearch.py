@@ -4,8 +4,8 @@ from gridsearch import grid_search
 from tensorflow.keras.losses import *
 
 # Hyper-parameters for Grid Search
-layer_types = ['tanh', 'sigmoid', 'elu']
-layer_counts = [1, 2]
+layer_types = ['tanh', 'sigmoid', 'linear']
+layer_counts = [1, 2, 3, 4]
 neuron_counts = [10, 50, 100, 500]
 loss_functions = [MeanSquaredError()]
 
