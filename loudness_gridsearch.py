@@ -4,9 +4,9 @@ from gridsearch import grid_search
 from tensorflow.keras.losses import *
 
 # Hyper-parameters for Grid Search
-layer_types = ['tanh', 'sigmoid', 'linear']
-layer_counts = [1, 2, 3, 4]
-neuron_counts = [10, 50, 100, 500]
+layer_types = ['relu', 'linear']
+layer_counts = [1, 3, 5]
+neuron_counts = [250, 500, 750, 1000]
 loss_functions = [MeanSquaredError()]
 
 # Run grid search
