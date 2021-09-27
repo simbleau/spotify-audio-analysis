@@ -8,7 +8,7 @@ import tensorflow
 from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
 from os.path import exists
-from numpy import np
+import numpy as np
 from sklearn.model_selection import train_test_split
 
 
@@ -40,8 +40,8 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
     x_spotify_train, y_spotify_train = get_xy('data/spotify_train.npz', endpoint)
     x_spotify_valid, y_spotify_valid = get_xy('data/spotify_valid.npz', endpoint)
 
-    x = np.concatenate(x_spotify_train,x_spotify_valid)
-    y = np.concatenate(y_spotify_train,y_spotify_valid)
+    x = np.concatenate([x_spotify_train,x_spotify_valid])
+    y = np.concatenate([y_spotify_train,y_spotify_valid])
 
     x_train, x_valid, y_train, y_valid = train_test_split(x,y,test_size=0.2)
 
