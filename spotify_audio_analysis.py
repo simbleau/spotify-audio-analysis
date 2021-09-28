@@ -58,12 +58,15 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
     # Add output layer
     if endpoint == "timbre":
         # Output layer should allows negative values
+        model.add(Dropout(0.2))
         model.add(Dense(12, activation='linear', name='output'))
     elif endpoint == "pitch":
         # Output layer clamps values between 0 and 1
+        model.add(Dropout(0.2))
         model.add(Dense(12, activation='softmax', name='output'))
     elif endpoint == "loudness":
         # Output layer should allows negative values
+        model.add(Dropout(0.2))
         model.add(Dense(1, activation='linear', name='output'))
     else:
         print("This shouldn't happen!")
