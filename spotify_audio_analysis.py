@@ -73,7 +73,7 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
         exit(1)
 
     model.optimizer = optimizer
-    model.compile(loss='mean_squared_error')
+    model.compile(loss=loss_function)
     model.summary()
 
     history = model.fit(x_train, y_train,
