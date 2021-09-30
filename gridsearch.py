@@ -31,16 +31,21 @@ def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functio
     layer_permutations = []
     print("Calcuating permutations...")
     for loss_function in loss_functions:
-        for layer_count in layer_counts:
-            neuron_count_permutations = list(itertools.product(neuron_counts, repeat=layer_count))
-            neuron_activation_permutations = list(itertools.product(neuron_count_permutations, layer_types))
-            amt_total_perms = len(neuron_activation_permutations)
+        for layer_count in layer_counts:     
+            neuron_count_permutations = list(itertools.product( neuron_counts, repeat=layer_count))
+            neuron_activation_permutations = list(itertools.product(layer_types, repeat=layer_count))       
+            # print(neuron_count_permutations)
+            # print(neuron_activation_permutations)
+            perms = list(itertools.product(neuron_count_permutations, neuron_activation_permutations)) 
+            # print(perms)
+            amt_total_perms = len(perms)
             print(f"For layer count {layer_count},  total permutations discovered: {amt_total_perms}")
-            for layer_neuron_counts, activation in neuron_activation_permutations:
+            for layer_neuron_counts, activations in perms:
                 layers = []
                 for neuron_amt in layer_neuron_counts:
                     layer_name = "layer" + str(len(layers))
-                    layers.append(Dense(neuron_amt, activation=activation, name=layer_name))
+                    for activation in activations:
+                        layers.append(Dense(neuron_amt, activation=activation, name=layer_name))
                 layer_permutations.append(layers)
     amt_layer_permutations = len(layer_permutations)
     print(f"All {amt_layer_permutations} permutations compiled.")
@@ -50,7 +55,9 @@ def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functio
         shuffle(layer_permutations)
         print("Randomized.")
 
+    """ 
     print("Beginning grid search...")
     for layer_permutation in layer_permutations:
         run(endpoint, layer_permutation, loss_function, optimizer, batch_size, epochs, False)
     print("Grid search complete.")
+    """
