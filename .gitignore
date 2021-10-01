@@ -12,6 +12,7 @@ checkpoints/
 
 # Ignore results.csv
 results.csv
+results_with_cross_validation.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
