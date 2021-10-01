@@ -8,7 +8,8 @@ layer_types = ['tanh', 'sigmoid', 'sigmoid', 'relu', 'linear']
 layer_counts = [1, 2]
 neuron_counts = [10, 50, 100, 500]
 loss_functions = [MeanSquaredError()]
+run_with_Kfolds = False
 
 # Run grid search
 if __name__ == "__main__":
-    grid_search("pitch", layer_types, layer_counts, neuron_counts, loss_functions)
+    grid_search("pitch", layer_types, layer_counts, neuron_counts, loss_functions, run_with_Kfolds)

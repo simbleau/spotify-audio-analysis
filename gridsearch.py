@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import itertools
-from spotify_audio_analysis import run
+from spotify_audio_analysis import run,run_with_cross_validation
 from tensorflow.keras.optimizers import *
 from tensorflow.keras.layers import *
 from random import shuffle
@@ -16,7 +16,7 @@ PRINT_PERMUTATIONS = True  # Whether to print the amount of permutations while r
 RANDOM_ORDERING = True  # Whether to grid search in random order (good for faster discovery)
 
 # Run grid search
-def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functions):
+def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functions, folds = 5,run_with_KFolds = False):
     if PRINT_PERMUTATIONS:
         amt_loss_functions = len(loss_functions)
         amt_layer_types = len(layer_types)
@@ -52,5 +52,8 @@ def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functio
         print("Randomized.")
     print("Beginning grid search...")
     for layer_permutation in layer_permutations:
-        run(endpoint, layer_permutation, loss_function, optimizer, batch_size, epochs, False)
+        if run_with_KFolds:
+            run_with_cross_validation(endpoint, layer_permutation, loss_function, optimizer, batch_size, epochs, False, folds=folds)
+        else:
+            run(endpoint, layer_permutation, loss_function, optimizer, batch_size, epochs, False)
     print("Grid search complete.")
