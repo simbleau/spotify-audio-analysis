@@ -9,7 +9,8 @@ layer_counts = [1, 3, 5]
 neuron_counts = [250, 500, 750, 1000]
 loss_functions = [MeanSquaredError()]
 run_with_Kfolds = False
+folds=5
 
 # Run grid search
 if __name__ == "__main__":
-    grid_search("pitch", layer_types, layer_counts, neuron_counts, loss_functions, run_with_Kfolds)
+    grid_search("pitch", layer_types, layer_counts, neuron_counts, loss_functions, folds,run_with_Kfolds)
