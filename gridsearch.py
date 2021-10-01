@@ -15,7 +15,6 @@ epochs = 100
 PRINT_PERMUTATIONS = True  # Whether to print the amount of permutations while running
 RANDOM_ORDERING = True  # Whether to grid search in random order (good for faster discovery)
 
-
 # Run grid search
 def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functions):
     if PRINT_PERMUTATIONS:
