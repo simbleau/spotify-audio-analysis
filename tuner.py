@@ -92,6 +92,8 @@ def tune(endpoint):
 
 
     # TODO: Discover best neuron counts with passes
+    
+    # TODO: Dropout
 
 
     # Conducts a final run with no patience to receive as much progress as possible.
