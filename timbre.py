@@ -27,7 +27,7 @@ optimizer = Adamax(learning_rate=0.1)
 batch_size = 4098
 
 # Epochs
-epochs = 300
+epochs = 1000
 
 # Run
 if __name__ == '__main__':
