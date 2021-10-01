@@ -10,11 +10,13 @@ from tensorflow.keras.layers import *
 from os.path import exists
 import numpy as np
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import KFold
 
 
 def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
     # Clear backend
     keras.backend.clear_session()
+
 
     # Printing Debug information
     num_gpus = len(tensorflow.config.experimental.list_physical_devices('GPU'))
@@ -43,47 +45,77 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
     x = np.concatenate([x_spotify_train,x_spotify_valid])
     y = np.concatenate([y_spotify_train,y_spotify_valid])
 
-    x_train, x_valid, y_train, y_valid = train_test_split(x,y,test_size=0.2)
+    # x_train, x_valid, y_train, y_valid = train_test_split(x,y,test_size=0.2)
+
+    #Set fold number
+
+    folds = 5
+
+    #Set fold scores containers
+
+    val_loss_per_fold = []
+
+    #Define KFold
+
+    kfold = KFold(n_splits=folds, shuffle=False)
 
     # Setup callbacks
+    ######DOES THIS NEED TO REPEAT EVER TIME THE MODEL IS FIT/COMPILED?#######
     model_checkpoint = setup_model_checkpoints(output_path, save_freq='epoch')
     early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1)
 
-    # Sequential Model
-    model = Sequential()
-    model.add(Input(129, name='input'))
-    # Hidden Layers
-    for layer in layers:
-        model.add(layer)
-    # Add output layer
-    if endpoint == "timbre":
-        # Output layer should allows negative values
-        model.add(Dropout(0.2))
-        model.add(Dense(12, activation='linear', name='output'))
-    elif endpoint == "pitch":
-        # Output layer clamps values between 0 and 1
-        model.add(Dropout(0.2))
-        model.add(Dense(12, activation='softmax', name='output'))
-    elif endpoint == "loudness":
-        # Output layer should allows negative values
-        model.add(Dropout(0.2))
-        model.add(Dense(1, activation='linear', name='output'))
-    else:
-        print("This shouldn't happen!")
-        exit(1)
+    fold_num = 1
+    for train,test in kfold.split(x,y):
 
-    model.optimizer = optimizer
-    model.compile(loss=loss_function)
-    model.summary()
+        # Sequential Model
+        model = Sequential()
+        model.add(Input(129, name='input'))
+        # Hidden Layers
+        for layer in layers:
+            model.add(layer)
+        # Add output layer
+        if endpoint == "timbre":
+            # Output layer should allows negative values
+            model.add(Dropout(0.2))
+            model.add(Dense(12, activation='linear', name='output'))
+        elif endpoint == "pitch":
+            # Output layer clamps values between 0 and 1
+            model.add(Dropout(0.2))
+            model.add(Dense(12, activation='softmax', name='output'))
+        elif endpoint == "loudness":
+            # Output layer should allows negative values
+            model.add(Dropout(0.2))
+            model.add(Dense(1, activation='linear', name='output'))
+        else:
+            print("This shouldn't happen!")
+            exit(1)
 
-    history = model.fit(x_train, y_train,
-                        batch_size=batch_size,
-                        epochs=epochs,
-                        verbose=1,
-                        validation_data=[x_valid, y_valid],
-                        callbacks=[model_checkpoint, early_stopping])
-    number_of_epochs_ran = len(history.history['val_loss'])
-    val_loss = model.evaluate(x_valid, y_valid, verbose=0)
+        model.optimizer = optimizer
+        model.compile(loss=loss_function)
+        model.summary()
+
+        history = model.fit(x[train], y[train],
+                            batch_size=batch_size,
+                            epochs=epochs,
+                            verbose=1,
+                            validation_data=[x[test], y[test]],
+                            callbacks=[model_checkpoint, early_stopping])
+        number_of_epochs_ran = len(history.history['val_loss'])
+        val_loss = model.evaluate(x[test], y[test], verbose=0)
+        val_loss_per_fold.append(val_loss)
+
+        fold_num = fold_num + 1
+
+    #Get average score per fold
+    avg_val_loss = np.mean(val_loss_per_fold)
+    print("------------------------------------------------------------------------------")
+    print('val_loss per fold')
+    for i in range(0,len(val_loss_per_fold)):
+        print('------------------------------------------------------------------------------')
+        print(f'Fold {i+1}:   val_loss = {val_loss_per_fold[i]}')
+    print('----------------------------------------------------------------------------------')
+    print('Average val_loss across all folds:')
+    print(f'{avg_val_loss}')
 
     # Write result to results
     csv_result = f"{endpoint},{layers_str},{loss_function_name},{batch_size},{epochs},{number_of_epochs_ran},{val_loss}\n"

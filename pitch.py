@@ -13,14 +13,13 @@ from tensorflow.keras.layers import *
 # "pitches": [0.370, 0.067, 0.055, 0.073, 0.108, 0.082, 0.123, 0.180, 0.327, 1.000, 0.178, 0.234]
 #[2000 sigmoid|1250 sigmoid|2500 sigmoid|1000 sigmoid]
 layers = [
+    Dense(750, activation='sigmoid'),
     Dense(2000, activation='sigmoid'),
-    Dense(1250, activation='sigmoid'),
-    Dense(2500, activation='sigmoid'),
-    Dense(1000, activation='sigmoid')
+    Dense(500, activation='sigmoid')
 ]
 
 # Loss function
-loss_function = MeanSquaredLogarithmicError()
+loss_function = MeanAbsoluteError()
 
 # Optimizers
 optimizer = Adamax(learning_rate=1)
