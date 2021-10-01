@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import sys
-from spotify_audio_analysis import run
+from spotify_audio_analysis import run_with_cross_validation
 from tensorflow.keras.optimizers import *
 from tensorflow.keras.losses import *
 from tensorflow.keras.layers import *
@@ -25,11 +25,11 @@ loss_function = MeanSquaredLogarithmicError()
 optimizer = Adamax(learning_rate=1)
 
 # Batch Size
-batch_size = 2048
+batch_size = 4098
 
 # Epochs
-epochs = 100
+epochs = 1
 
 # Run
 if __name__ == '__main__':
-    run("pitch", layers, loss_function, optimizer, batch_size, epochs, True)
+    run_with_cross_validation("pitch", layers, loss_function, optimizer, batch_size, epochs, folds=2)
