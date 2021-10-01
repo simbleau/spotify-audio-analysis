@@ -12,7 +12,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 
-def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
+def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save, patience=15):
     # Clear backend
     keras.backend.clear_session()
 
@@ -40,14 +40,14 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
     x_spotify_train, y_spotify_train = get_xy('data/spotify_train.npz', endpoint)
     x_spotify_valid, y_spotify_valid = get_xy('data/spotify_valid.npz', endpoint)
 
-    x = np.concatenate([x_spotify_train,x_spotify_valid])
-    y = np.concatenate([y_spotify_train,y_spotify_valid])
+    x = np.concatenate([x_spotify_train, x_spotify_valid])
+    y = np.concatenate([y_spotify_train, y_spotify_valid])
 
-    x_train, x_valid, y_train, y_valid = train_test_split(x,y,test_size=0.2)
+    x_train, x_valid, y_train, y_valid = train_test_split(x, y, test_size=0.2)
 
     # Setup callbacks
     model_checkpoint = setup_model_checkpoints(output_path, save_freq='epoch')
-    early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1)
+    early_stopping = EarlyStopping(monitor='val_loss', patience=patience, verbose=1)
 
     # Sequential Model
     model = Sequential()
@@ -108,10 +108,9 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
     else:
         print(f"This run did not beat the previous best loss of {prev_best_val_loss}")
 
-    print("Saving visualizations of the best model...")
-
     # Save result
     if save:
+        print("Saving visualizations of the best model...")
         # Save visualizations of the best model
         visualize(model, x=x_train, y_true=y_train, endpoint=endpoint, name='Training', output_path=output_path)
         print(f"Saved " + str(os.path.join(output_path, f'visualize_Training.png')) + '.')
@@ -119,3 +118,5 @@ def run(endpoint, layers, loss_function, optimizer, batch_size, epochs, save):
         training_png_file_path = os.path.join(output_path, f'visualize_Validation.png')
         visualize(model, x=x_valid, y_true=y_valid, endpoint=endpoint, name='Validation', output_path=output_path)
         print(f"Saved " + str(os.path.join(output_path, f'visualize_Validation.png')) + '.')
+
+    return best_loss
