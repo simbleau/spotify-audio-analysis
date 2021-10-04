@@ -36,7 +36,6 @@ def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functio
             neuron_count_permutations = list(itertools.product(neuron_counts, repeat=layer_count))
             neuron_activation_permutations = list(itertools.product(layer_types, repeat=layer_count))      
             perms = list(itertools.product(neuron_count_permutations, neuron_activation_permutations))
-            print(f"{perms}")
             amt_total_perms = len(perms)
             print(f"For layer count {layer_count},  total permutations discovered: {amt_total_perms}")
             for layer_neuron_counts, activations in perms:
@@ -50,7 +49,6 @@ def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functio
     amt_layer_permutations = len(layer_permutations)
     print(f"All {amt_layer_permutations} permutations compiled.")
 
-    exit(1)
 
     if RANDOM_ORDERING:
         print("Randomizing permutation order...")
