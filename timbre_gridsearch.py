@@ -8,7 +8,7 @@ layer_types = ['tanh', 'sigmoid', 'linear']
 layer_counts = [1, 2, 3, 4]
 neuron_counts = [50, 100, 500, 1000]
 loss_functions = [MeanSquaredError()]
-run_with_Kfolds = False
+run_with_Kfolds = True
 folds = 5
 
 # Run grid search
