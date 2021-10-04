@@ -55,6 +55,6 @@ def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functio
 
     print("Beginning grid search...")
     for layer_permutation in layer_permutations:
-        batch_num = random.randint(0, len(batch_sizes))
+        batch_num = random.randint(0, len(batch_sizes)-1)
         run(endpoint, layer_permutation, loss_function, optimizer, batch_sizes[batch_num], epochs, False)
     print("Grid search complete.")
