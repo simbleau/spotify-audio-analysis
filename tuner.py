@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 import sys
+from copy import deepcopy
+
 from spotify_audio_analysis import run
 from tensorflow.keras.optimizers import *
 from tensorflow.keras.losses import *
@@ -32,7 +34,7 @@ def tune(endpoint):
         sys.exit(1)
 
     # Additional hyper-parameters to try
-    all_loss_functions = [MeanSquaredError(), MeanAbsoluteError(), MeanSquaredLogarithmicError()]
+    all_loss_functions = [MeanSquaredError(), MeanAbsoluteError(), MeanSquaredLogarithmicError(), Huber()]
     all_optimizers = [Adam(), Adamax(learingrate=0.1), SGD()]
 
     # The best loss to be tracked
@@ -62,7 +64,7 @@ def tune(endpoint):
     best_batch_size = batch_size
     best_loss = run(endpoint, layers, loss_function, optimizer, batch_size, 10000, False)
     # Attempt to go up
-    high_best_loss, high_batch_size = float('inf'), batch_size
+    high_batch_size = float('inf'), batch_size
     while patience < max_patience:
         # Increase batch size
         high_batch_size += step_size
@@ -75,7 +77,7 @@ def tune(endpoint):
         else:
             patience += 1
     # Attempt to go down
-    low_best_loss, low_batch_size = float('inf'), batch_size
+    low_batch_size = float('inf'), batch_size
     while patience < max_patience:
         # Decrease batch size
         low_batch_size -= max(1, step_size)
@@ -90,11 +92,43 @@ def tune(endpoint):
     # Overwrite batch size
     batch_size = best_batch_size
 
+    # Discover best neuron counts with passes
+    passes = 1
+    best_loss = run(endpoint, layers, loss_function, optimizer, batch_size, 10000, False)
+    for pass_num in range(passes):
+        for i in range(len(layers)):
+            layers_copy = deepcopy(layers)
+            layer = layers_copy[i]
 
-    # TODO: Discover best neuron counts with passes
+            original_count = layer.units
+            # Attempt to go up
+            while patience < max_patience:
+                # Increase neuron count
+                layer.units += step_size
+                new_loss = run(endpoint, layers_copy, loss_function, optimizer, high_batch_size, 10000, False)
+                if new_loss < best_loss:
+                    patience = 0
+                    best_loss = new_loss
+                    layers[i].units = layer.units # Modify original set
+                    print(f"New best layer-count discovered: {layer.units}")
+                else:
+                    patience += 1
+            # Reset
+            layer.units = original_count
+            # Attempt to go down
+            while patience < max_patience:
+                # Decrease neuron count
+                layer.units -= step_size
+                new_loss = run(endpoint, layers_copy, loss_function, optimizer, high_batch_size, 10000, False)
+                if new_loss < best_loss:
+                    patience = 0
+                    best_loss = new_loss
+                    layers[i].units = layer.units # Modify original set
+                    print(f"New best layer-count discovered: {layer.units}")
+                else:
+                    patience += 1
     
     # TODO: Dropout
-
 
     # Conducts a final run with no patience to receive as much progress as possible.
     run(endpoint, layers, loss_function, optimizer, batch_size, 10000, False, patience=100)
