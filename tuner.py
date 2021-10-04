@@ -41,6 +41,7 @@ def tune(endpoint):
     best_loss = float('inf')
 
     # Discover best loss function
+    print("Discovering best loss function...")
     for lf in all_loss_functions:
         new_loss = run(endpoint, layers, lf, optimizer, batch_size, 10000, False)
         if new_loss < best_loss:
@@ -49,6 +50,7 @@ def tune(endpoint):
             print(f"New best loss-function discovered: {lf}")
 
     # Discover best optimizer
+    print("Discovering best optimizer...")
     for op in all_optimizers:
         new_loss = run(endpoint, layers, loss_function, op, batch_size, 10000, False)
         if new_loss < best_loss:
@@ -57,6 +59,7 @@ def tune(endpoint):
             print(f"New best optimizer discovered: {lf}")
 
     # Discover best batch sizes
+    print("Discovering best batch size...")
     max_patience = 10
     patience = 0
     step_size = 100
@@ -93,7 +96,12 @@ def tune(endpoint):
     batch_size = best_batch_size
 
     # Discover best neuron counts with passes
+    print("Discovering best neuron counts...")
     passes = 1
+    max_patience = 10
+    patience = 0
+    step_size = 100
+
     best_loss = run(endpoint, layers, loss_function, optimizer, batch_size, 10000, False)
     for pass_num in range(passes):
         for i in range(len(layers)):
