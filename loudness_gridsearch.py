@@ -8,7 +8,7 @@ layer_types = ['relu', 'linear']
 layer_counts = [3, 4]
 neuron_counts = [250, 400, 600, 750]
 loss_functions = [MeanSquaredError(), MeanAbsoluteError(), MeanSquaredLogarithmicError()]
-run_with_Kfolds = False
+run_with_Kfolds = True
 folds=5
 
 # Run grid search
