@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 import itertools
+import random
+
 from spotify_audio_analysis import run
 from tensorflow.keras.optimizers import *
 from tensorflow.keras.layers import *
@@ -8,7 +10,7 @@ from random import shuffle
 
 # Constants - (ACCEPTABLE ERROR)
 optimizer = Adamax(learning_rate=0.01)
-batch_size = 1024
+#batch_size = 1024
 epochs = 100
 
 # Debug settings
@@ -17,11 +19,12 @@ RANDOM_ORDERING = True  # Whether to grid search in random order (good for faste
 
 
 # Run grid search
-def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functions):
+def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functions, batch_sizes=[1024]):
     if PRINT_PERMUTATIONS:
         amt_loss_functions = len(loss_functions)
         amt_layer_types = len(layer_types)
         amt_neuron_counts = len(neuron_counts)
+        amt_batch_sizes = len(batch_sizes)
         amt_total = 0
         for layer_count in layer_counts:
             amt_total += amt_neuron_counts ** layer_count * amt_layer_types
@@ -52,5 +55,6 @@ def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functio
 
     print("Beginning grid search...")
     for layer_permutation in layer_permutations:
-        run(endpoint, layer_permutation, loss_function, optimizer, batch_size, epochs, False)
+        batch_num = random.randint(0, len(batch_sizes))
+        run(endpoint, layer_permutation, loss_function, optimizer, batch_sizes[batch_num], epochs, False)
     print("Grid search complete.")

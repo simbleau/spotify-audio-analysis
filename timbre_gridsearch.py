@@ -7,8 +7,9 @@ from tensorflow.keras.losses import *
 layer_types = ['tanh', 'sigmoid', 'linear']
 layer_counts = [1, 2, 3, 4]
 neuron_counts = [50, 100, 500, 1000]
+batch_sizes = [1024, 2048, 4096]
 loss_functions = [MeanSquaredError()]
 
 # Run grid search
 if __name__ == "__main__":
-    grid_search("timbre", layer_types, layer_counts, neuron_counts, loss_functions)
+    grid_search("timbre", layer_types, layer_counts, neuron_counts, loss_functions, batch_sizes)
