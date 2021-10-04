@@ -3,7 +3,7 @@
 import sys
 from copy import deepcopy
 
-from spotify_audio_analysis import run
+from spotify_audio_analysis import run, run_with_cross_validation
 from tensorflow.keras.optimizers import *
 from tensorflow.keras.losses import *
 from tensorflow.keras.layers import *
@@ -139,7 +139,9 @@ def tune(endpoint):
     # TODO: Dropout
 
     # Conducts a final run with no patience to receive as much progress as possible.
-    run(endpoint, layers, loss_function, optimizer, batch_size, 10000, False, patience=100)
+    run_with_cross_validation(endpoint, layers, loss_function, optimizer, batch_size, 10000, False,
+                              folds=5,
+                              patience=15)
 
 
 # Run
