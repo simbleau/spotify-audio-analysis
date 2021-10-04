@@ -36,7 +36,6 @@ def grid_search(endpoint, layer_types, layer_counts, neuron_counts, loss_functio
             neuron_count_permutations = list(itertools.product(neuron_counts, repeat=layer_count))
             neuron_activation_permutations = list(itertools.product(layer_types, repeat=layer_count))      
             perms = list(itertools.product(neuron_count_permutations, neuron_activation_permutations))
-            amt_total_perms = len(perms)
             for layer_neuron_counts, activations in perms:
                 layers = []
                 for i in range(len(layer_neuron_counts)):
