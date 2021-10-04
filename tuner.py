@@ -35,7 +35,7 @@ def tune(endpoint):
 
     # Additional hyper-parameters to try
     all_loss_functions = [MeanSquaredError(), MeanAbsoluteError(), MeanSquaredLogarithmicError(), Huber()]
-    all_optimizers = [Adam(), Adamax(learingrate=0.1), SGD()]
+    all_optimizers = [Adam(), Adamax(learning_rate=0.1), SGD()]
 
     # The best loss to be tracked
     best_loss = float('inf')
