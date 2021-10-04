@@ -13,4 +13,4 @@ folds = 5
 
 # Run grid search
 if __name__ == "__main__":
-    grid_search("pitch", layer_types, layer_counts, neuron_counts, loss_functions, folds, run_with_Kfolds)
+    grid_search("timbre", layer_types, layer_counts, neuron_counts, loss_functions, folds, run_with_Kfolds)
