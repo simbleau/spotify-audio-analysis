@@ -42,12 +42,15 @@ def tune(endpoint):
 
     # Discover best loss function
     print("Discovering best loss function...")
+    # we want to disable this for now
+    """
     for lf in all_loss_functions:
         new_loss = run(endpoint, layers, lf, optimizer, batch_size, 10000, False)
         if new_loss < best_loss:
             # Overwrite loss function
             loss_function = lf
             print(f"New best loss-function discovered: {lf}")
+    """
 
     # Discover best optimizer
     print("Discovering best optimizer...")
