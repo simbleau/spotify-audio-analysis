@@ -157,7 +157,7 @@ def run_with_cross_validation(endpoint, layers, loss_function, optimizer, batch_
     #early_stopping = EarlyStopping(monitor='val_loss', patience=patience, verbose=1)
 
     # Define KFold
-    kfold = KFold(n_splits=folds, shuffle=False)
+    kfold = KFold(n_splits=folds, shuffle=True)
     # Set fold scores containers
     val_loss_per_fold = []
 

@@ -42,12 +42,15 @@ def tune(endpoint):
 
     # Discover best loss function
     print("Discovering best loss function...")
+    # we want to disable this for now
+    """
     for lf in all_loss_functions:
         new_loss = run(endpoint, layers, lf, optimizer, batch_size, 10000, False)
         if new_loss < best_loss:
             # Overwrite loss function
             loss_function = lf
             print(f"New best loss-function discovered: {lf}")
+    """
 
     # Discover best optimizer
     print("Discovering best optimizer...")
@@ -56,7 +59,7 @@ def tune(endpoint):
         if new_loss < best_loss:
             # Overwrite optimizer
             optimizer = op
-            print(f"New best optimizer discovered: {lf}")
+            print(f"New best optimizer discovered: {op}")
 
     # Discover best batch sizes
     print("Discovering best batch size...")
@@ -67,7 +70,7 @@ def tune(endpoint):
     best_batch_size = batch_size
     best_loss = run(endpoint, layers, loss_function, optimizer, batch_size, 10000, False)
     # Attempt to go up
-    high_batch_size = float('inf'), batch_size
+    high_batch_size = batch_size
     while patience < max_patience:
         # Increase batch size
         high_batch_size += step_size
@@ -76,11 +79,11 @@ def tune(endpoint):
             patience = 0
             best_batch_size = high_batch_size
             best_loss = new_loss
-            print(f"New best batch-size discovered: {high_batch_size}")
+            print(f"New best batch-size discovered: {best_batch_size}")
         else:
             patience += 1
     # Attempt to go down
-    low_batch_size = float('inf'), batch_size
+    low_batch_size = batch_size
     while patience < max_patience:
         # Decrease batch size
         low_batch_size -= max(1, step_size)
@@ -89,7 +92,7 @@ def tune(endpoint):
             patience = 0
             best_batch_size = low_batch_size
             best_loss = new_loss
-            print(f"New best batch-size discovered: {lf}")
+            print(f"New best batch-size discovered: {best_batch_size}")
         else:
             patience += 1
     # Overwrite batch size
@@ -141,7 +144,7 @@ def tune(endpoint):
     # Conducts a final run with no patience to receive as much progress as possible.
     run_with_cross_validation(endpoint, layers, loss_function, optimizer, batch_size, 10000, False,
                               folds=5,
-                              patience=15)
+                              patience=150)
 
 
 # Run
