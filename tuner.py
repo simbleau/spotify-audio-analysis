@@ -144,7 +144,7 @@ def tune(endpoint):
     # Conducts a final run with no patience to receive as much progress as possible.
     run_with_cross_validation(endpoint, layers, loss_function, optimizer, batch_size, 10000, False,
                               folds=5,
-                              patience=15)
+                              patience=150)
 
 
 # Run
