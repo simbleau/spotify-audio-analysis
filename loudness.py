@@ -12,10 +12,10 @@ from tensorflow.keras.layers import *
 # Example Output (from https://cs.appstate.edu/~rmp/cs5440/AnalyzeDocumentation.pdf)
 # "loudness": -60.000
 layers = [
-    Dense(500, activation='relu'),
-    Dense(500, activation='relu'),
-    Dense(750, activation='relu'),
-    Dense(750, activation='relu'),
+    Dense(250, activation='relu'),
+    Dense(250, activation='linear'),
+    Dense(600, activation='relu'),
+    Dense(600, activation='linear'),
 ]
 
 # Loss function
@@ -25,7 +25,7 @@ loss_function = MeanSquaredError()
 optimizer = Adamax(learning_rate=1)
 
 # Batch Size
-batch_size = 1024
+batch_size = 512
 
 # Epochs
 epochs = 100
