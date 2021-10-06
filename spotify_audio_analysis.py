@@ -153,8 +153,8 @@ def run_with_cross_validation(endpoint, layers, loss_function, optimizer, batch_
     y = np.concatenate([y_spotify_train, y_spotify_valid])
 
     # Setup callbacks
-    model_checkpoint = setup_model_checkpoints(output_path, save_freq='epoch')
-    early_stopping = EarlyStopping(monitor='val_loss', patience=patience, verbose=1)
+    #model_checkpoint = setup_model_checkpoints(output_path, save_freq='epoch')
+    #early_stopping = EarlyStopping(monitor='val_loss', patience=patience, verbose=1)
 
     # Define KFold
     kfold = KFold(n_splits=folds, shuffle=False)
@@ -162,6 +162,9 @@ def run_with_cross_validation(endpoint, layers, loss_function, optimizer, batch_
     val_loss_per_fold = []
 
     for train, test in kfold.split(x, y):
+
+        model_checkpoint = setup_model_checkpoints(output_path, save_freq='epoch')
+        early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1)
         # Sequential Model
         model = Sequential()
         model.add(Input(129, name='input'))

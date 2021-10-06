@@ -7,7 +7,7 @@ from tensorflow.keras.layers import *
 from random import shuffle
 
 # Constants - (ACCEPTABLE ERROR)
-optimizer = Adamax(learning_rate=0.01)
+optimizer = Adamax(learning_rate=0.1)
 batch_size = 1024
 epochs = 100
 

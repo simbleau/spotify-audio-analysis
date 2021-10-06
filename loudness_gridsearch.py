@@ -4,10 +4,10 @@ from gridsearch import grid_search
 from tensorflow.keras.losses import *
 
 # Hyper-parameters for Grid Search
-layer_types = ['relu', 'linear']
-layer_counts = [3, 4]
+layer_types = ['relu', 'sigmoid', 'tanh']
+layer_counts = [4]
 neuron_counts = [250, 400, 600, 750]
-loss_functions = [MeanSquaredError(), MeanAbsoluteError(), MeanSquaredLogarithmicError()]
+loss_functions = [MeanSquaredError()]
 run_with_Kfolds = True
 folds=5
 

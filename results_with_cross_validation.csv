@@ -1,1 +1,39 @@
 pitch,[750 sigmoid|2500 sigmoid|500 sigmoid],mean_squared_logarithmic_error,4098,1,1,2,0.0049106830115995285
+loudness,[400 tanh|600 sigmoid|750 tanh|250 tanh],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[400 relu|600 tanh|250 tanh],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[600 relu|400 relu|400 tanh|400 sigmoid],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[600 sigmoid|600 relu|400 relu|750 sigmoid],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[250 sigmoid|750 tanh|400 tanh],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[400 sigmoid|250 relu|250 sigmoid|750 relu],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[600 relu|400 sigmoid|600 relu|750 tanh],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[400 tanh|750 sigmoid|400 tanh|400 relu],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[400 relu|250 tanh|400 sigmoid|250 relu],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[750 tanh|400 tanh|600 sigmoid|600 relu],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[750 sigmoid|400 relu|750 relu|250 sigmoid],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[400 sigmoid|600 tanh|250 tanh|250 tanh],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[600 tanh|600 sigmoid|400 sigmoid|250 relu],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[750 tanh|400 tanh|250 sigmoid|750 tanh],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[400 sigmoid|600 sigmoid|750 relu|600 tanh],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[600 relu|400 sigmoid|750 tanh|250 sigmoid],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[400 tanh|600 sigmoid|750 relu|250 sigmoid],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[250 relu|250 tanh|250 relu|600 relu],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[750 relu|600 sigmoid|600 sigmoid|400 sigmoid],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[600 tanh|250 relu|400 sigmoid|750 tanh],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[400 tanh|400 sigmoid|250 sigmoid|250 tanh],mean_squared_logarithmic_error,1024,100,2,5,0.0005974839817151714
+loudness,[250 tanh|250 tanh|750 tanh|600 relu],mean_squared_logarithmic_error,1024,100,11,5,0.0006058330667699909
+loudness,[250 sigmoid|250 tanh|250 tanh|250 sigmoid],mean_squared_logarithmic_error,1024,100,11,5,0.0005974839817151714
+loudness,[400 relu|400 sigmoid|750 relu|750 tanh],mean_squared_logarithmic_error,1024,100,11,5,0.0005974839817151714
+loudness,[400 relu|750 sigmoid|600 sigmoid|400 tanh],mean_squared_logarithmic_error,1024,100,11,5,0.0005974839817151714
+loudness,[250 tanh|600 sigmoid|400 sigmoid|600 tanh],mean_squared_logarithmic_error,1024,100,11,5,0.0005974839817151714
+loudness,[750 tanh|600 relu|750 tanh|750 tanh],mean_squared_logarithmic_error,1024,100,11,5,0.0005974839817151714
+loudness,[750 relu|750 sigmoid|400 tanh|400 tanh],mean_squared_logarithmic_error,1024,100,11,5,0.0005974839817151714
+loudness,[600 sigmoid|600 relu|750 sigmoid|400 sigmoid],mean_squared_logarithmic_error,1024,100,11,5,0.0005974839817151714
+loudness,[600 relu|400 sigmoid|250 relu|400 relu],mean_squared_error,1024,100,16,5,4.655979066238354
+loudness,[400 relu|400 sigmoid|750 relu|400 sigmoid],mean_squared_error,1024,100,25,5,4.4058249770329025
+loudness,[600 sigmoid|400 relu|750 tanh|750 relu],mean_squared_error,1024,100,21,5,11.734819372727289
+loudness,[400 tanh|400 sigmoid|600 sigmoid|250 sigmoid],mean_squared_error,1024,100,12,5,10.947479536368343
+loudness,[600 sigmoid|600 relu|400 tanh|250 relu],mean_squared_error,1024,100,17,5,12.817798178528633
+loudness,[750 sigmoid|750 sigmoid|600 sigmoid|750 sigmoid],mean_squared_error,1024,100,13,5,10.609658868022589
+loudness,[250 relu|750 sigmoid|750 sigmoid|750 relu],mean_squared_error,1024,100,19,5,4.213600454918701
+loudness,[750 relu|750 tanh|600 sigmoid|250 sigmoid],mean_squared_error,1024,100,33,5,4.595528260355105
+loudness,[250 relu|400 sigmoid|250 tanh|600 sigmoid],mean_squared_error,1024,100,17,5,4.02549075065559
