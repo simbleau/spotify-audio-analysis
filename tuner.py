@@ -70,7 +70,7 @@ def tune(endpoint):
     best_batch_size = batch_size
     best_loss = run(endpoint, layers, loss_function, optimizer, batch_size, 10000, False)
     # Attempt to go up
-    high_batch_size = float('inf'), batch_size
+    high_batch_size = batch_size
     while patience < max_patience:
         # Increase batch size
         high_batch_size += step_size
@@ -79,11 +79,11 @@ def tune(endpoint):
             patience = 0
             best_batch_size = high_batch_size
             best_loss = new_loss
-            print(f"New best batch-size discovered: {high_batch_size}")
+            print(f"New best batch-size discovered: {best_batch_size}")
         else:
             patience += 1
     # Attempt to go down
-    low_batch_size = float('inf'), batch_size
+    low_batch_size = batch_size
     while patience < max_patience:
         # Decrease batch size
         low_batch_size -= max(1, step_size)
