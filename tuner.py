@@ -59,7 +59,7 @@ def tune(endpoint):
         if new_loss < best_loss:
             # Overwrite optimizer
             optimizer = op
-            print(f"New best optimizer discovered: {lf}")
+            print(f"New best optimizer discovered: {op}")
 
     # Discover best batch sizes
     print("Discovering best batch size...")
@@ -92,7 +92,7 @@ def tune(endpoint):
             patience = 0
             best_batch_size = low_batch_size
             best_loss = new_loss
-            print(f"New best batch-size discovered: {lf}")
+            print(f"New best batch-size discovered: {best_batch_size}")
         else:
             patience += 1
     # Overwrite batch size
