@@ -164,7 +164,7 @@ def run_with_cross_validation(endpoint, layers, loss_function, optimizer, batch_
     for train, test in kfold.split(x, y):
 
         model_checkpoint = setup_model_checkpoints(output_path, save_freq='epoch')
-        early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1)
+        early_stopping = EarlyStopping(monitor='val_loss', patience=patience, verbose=1)
         # Sequential Model
         model = Sequential()
         model.add(Input(129, name='input'))
