@@ -27,11 +27,9 @@ optimizer = Adamax(learning_rate=0.1)
 batch_size = 1024
 
 # Epochs
-epochs = 1000
-
-run_with_Kfolds = True
-folds=5
+epochs = 10000
 
 # Run
 if __name__ == '__main__':
-    run_with_cross_validation("timbre", layers, loss_function, optimizer, batch_size, epochs, True)
+    run_with_cross_validation("timbre", layers, loss_function, optimizer, batch_size, epochs,
+                              folds=5, patience=100)
